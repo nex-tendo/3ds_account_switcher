@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include "frda.h"
 
+#define NINTENDO_TEXT CONSOLE_YELLOW "Nintendo" CONSOLE_CYAN
+#define NEXTENDO_TEXT CONSOLE_MAGENTA "Nextendo" CONSOLE_CYAN
+
 int main(int argc, char *argv[])
 {
     frdaInit();
@@ -26,8 +29,8 @@ int main(int argc, char *argv[])
     printf(CONSOLE_CYAN "== Nextendo Account Switcher ==\n" CONSOLE_RESET);
 
     printf(CONSOLE_CYAN "Please select a network:\n" CONSOLE_RESET);
-    printf(CONSOLE_CYAN "Press A to switch to Nintendo Account.\n" CONSOLE_RESET);
-    printf(CONSOLE_CYAN "Press X to switch to Nextendo Account.\n" CONSOLE_RESET);
+    printf(CONSOLE_CYAN "Press A to switch to " NINTENDO_TEXT " Account.\n" CONSOLE_RESET);
+    printf(CONSOLE_CYAN "Press X to switch to " NEXTENDO_TEXT " Account.\n" CONSOLE_RESET);
 
     while (aptMainLoop())
     {

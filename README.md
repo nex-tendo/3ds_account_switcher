@@ -2,4 +2,4 @@
 - 3DS Nextendo Account Switcher
 
 # Credits
-- Zaksabeast for the friends patch.
+- Zaksabeast for the friends & act patches.
