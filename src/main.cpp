@@ -26,11 +26,14 @@ int main(int argc, char *argv[])
 
     consoleClear();
 
+    printf("\n");
     printf(CONSOLE_CYAN "== Nextendo Account Switcher ==\n" CONSOLE_RESET);
-
+    printf("\n");
     printf(CONSOLE_CYAN "Please select a network:\n" CONSOLE_RESET);
     printf(CONSOLE_CYAN "Press A to switch to " NINTENDO_TEXT " Account.\n" CONSOLE_RESET);
     printf(CONSOLE_CYAN "Press X to switch to " NEXTENDO_TEXT " Account.\n" CONSOLE_RESET);
+    printf("\n");
+    printf(CONSOLE_CYAN "Press START to exit.\n" CONSOLE_RESET);
 
     while (aptMainLoop())
     {
@@ -47,6 +50,9 @@ int main(int argc, char *argv[])
             nastype = NAS_LIVE; // Switch to nasc live/prod url
             nasenv = NAS_ENV_L;
             FRDA_LoadLocalAccount(accountId);
+            printf("\n");
+            printf(CONSOLE_CYAN " Patching " NINTENDO_TEXT " network.." CONSOLE_RESET);
+            svcSleepThread(3000000000);
             break;
         }
 
@@ -58,8 +64,23 @@ int main(int argc, char *argv[])
             nasenv = NAS_ENV_L;
             FRDA_CreateLocalAccount(accountId, nastype, nasenv, 1);
             FRDA_LoadLocalAccount(accountId);
+            printf("\n");
+            printf(CONSOLE_CYAN " Patching " NEXTENDO_TEXT " network.." CONSOLE_RESET);
+            svcSleepThread(3000000000);
             break;
         }
+
+        if (kDown & KEY_START)
+        {
+            printf("\n");
+            printf(CONSOLE_RED "Exiting..\n" CONSOLE_RESET);
+            svcSleepThread(3000000000);
+            break;
+        }
+
+        gfxFlushBuffers();
+        gfxSwapBuffers();
+        gspWaitForVBlank();
     }
 
     gfxExit();
