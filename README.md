@@ -3,3 +3,4 @@
 
 # Credits
 - Zaksabeast for the friends & act patches.
+- SciresM for the SSL patch.
