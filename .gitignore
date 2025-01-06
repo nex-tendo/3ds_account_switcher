@@ -1,0 +1,8 @@
+build/
+*.ips
+*.bin
+*.3dsx
+*.elf
+*.smdh
+*.cia
+*.lst
