@@ -38,8 +38,8 @@ int main(int argc, char *argv[])
     while (aptMainLoop())
     {
         gspWaitForVBlank();
-		gfxSwapBuffers();
-		hidScanInput();
+	gfxSwapBuffers();
+	hidScanInput();
 
         u32 kDown = hidKeysDown();
 
