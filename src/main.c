@@ -13,14 +13,6 @@
 #define NINTENDO_ACCOUNT_ID 1
 #define NEXTENDO_ACCOUNT_ID 2
 
-bool checkInternetConnection() {
-    u32 wifiStatus = 0;
-    if (R_FAILED(ACU_GetWifiStatus(&wifiStatus)) || wifiStatus == 0) {
-        return false;
-    }
-    return true;
-}
-
 int main(int argc, char *argv[])
 {
     gfxInitDefault();
@@ -36,17 +28,18 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    FRDA_SetClientSdkVersion(0x70000C8);
-    FRDA_Save();
-
-    rc = FRDA_UnloadLocalAccount();
-    if (R_FAILED(rc))
-    {
-        printf(CONSOLE_RED "Failed to unload local account: 0x%08lX\n", rc);
+    rc = FRDA_SetClientSdkVersion(0x70000C8);
+    if (R_FAILED(rc)) {
+        printf(CONSOLE_RED "Failed to set SDK version: 0x%08lX\n", rc);
         svcSleepThread(3000000000);
+        frdaExit();
         gfxExit();
         return 0;
     }
+
+    FRDA_Save();
+
+    FRDA_UnloadLocalAccount();
 
     u8 accountId = NINTENDO_ACCOUNT_ID;
     NASType nastype = NAS_LIVE;
@@ -76,12 +69,6 @@ int main(int argc, char *argv[])
 
         if (kDown & KEY_Y)
         {
-            if (!checkInternetConnection()) {
-                printf(CONSOLE_RED "Error: No internet connection.\n" CONSOLE_RESET);
-                svcSleepThread(3000000000);
-                continue;
-            }
-
             accountId = NINTENDO_ACCOUNT_ID;
             nastype = NAS_LIVE;
             nasenv = NAS_ENV_L;
@@ -94,12 +81,6 @@ int main(int argc, char *argv[])
 
         if (kDown & KEY_X)
         {
-            if (!checkInternetConnection()) {
-                printf(CONSOLE_RED "Error: No internet connection.\n" CONSOLE_RESET);
-                svcSleepThread(3000000000);
-                continue;
-            }
-
             accountId = NEXTENDO_ACCOUNT_ID;
             nastype = NAS_TEST;
             nasenv = NAS_ENV_L;
