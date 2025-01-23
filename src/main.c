@@ -1,6 +1,6 @@
 #include <3ds.h>
 #include <string.h>
-#include <string>
+#include <string.h>
 #include <stdio.h>
 #include "frda.h"
 #include "version.h"
@@ -10,15 +10,15 @@
 #define NINTENDO_TEXT CONSOLE_YELLOW "Nintendo" CONSOLE_CYAN
 #define NEXTENDO_TEXT CONSOLE_MAGENTA "Nextendo" CONSOLE_CYAN
 
-Result checkInternetConnection() {
+#define NINTENDO_ACCOUNT_ID 1
+#define NEXTENDO_ACCOUNT_ID 2
+
+bool checkInternetConnection() {
     u32 wifiStatus = 0;
-    Result rc = ACU_GetWifiStatus(&wifiStatus);
-
-    if (R_FAILED(rc) || wifiStatus == 0) {
-        return rc;
+    if (R_FAILED(ACU_GetWifiStatus(&wifiStatus)) || wifiStatus == 0) {
+        return false;
     }
-
-    return 0;
+    return true;
 }
 
 int main(int argc, char *argv[])
@@ -36,14 +36,6 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    rc = checkInternetConnection();
-    if (R_FAILED(rc)) {
-        printf("Wi-Fi connection error: 0x%08lX\n", rc);
-        svcSleepThread(3000000000);
-        gfxExit();
-        return 0;
-    }
-
     FRDA_SetClientSdkVersion(0x70000C8);
     FRDA_Save();
 
@@ -56,7 +48,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    u8 accountId = 1;
+    u8 accountId = NINTENDO_ACCOUNT_ID;
     NASType nastype = NAS_LIVE;
     NASEnvironment nasenv = NAS_ENV_L;
 
@@ -84,7 +76,13 @@ int main(int argc, char *argv[])
 
         if (kDown & KEY_Y)
         {
-            accountId = 1;
+            if (!checkInternetConnection()) {
+                printf(CONSOLE_RED "Error: No internet connection.\n" CONSOLE_RESET);
+                svcSleepThread(3000000000);
+                continue;
+            }
+
+            accountId = NINTENDO_ACCOUNT_ID;
             nastype = NAS_LIVE;
             nasenv = NAS_ENV_L;
             FRDA_LoadLocalAccount(accountId);
@@ -96,7 +94,13 @@ int main(int argc, char *argv[])
 
         if (kDown & KEY_X)
         {
-            accountId = 2;
+            if (!checkInternetConnection()) {
+                printf(CONSOLE_RED "Error: No internet connection.\n" CONSOLE_RESET);
+                svcSleepThread(3000000000);
+                continue;
+            }
+
+            accountId = NEXTENDO_ACCOUNT_ID;
             nastype = NAS_TEST;
             nasenv = NAS_ENV_L;
             FRDA_CreateLocalAccount(accountId, nastype, nasenv, 1);
