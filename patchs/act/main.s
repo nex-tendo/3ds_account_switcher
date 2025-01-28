@@ -38,6 +38,6 @@ set_base_account_url equ 0x10ed48
 
     .align 4
     unofficial_url:
-      .asciiz "https://account.nextendo.online/v1/api/"
+      .asciiz "http://account.nextendo.online/v1/api/"
   .endarea
 .close

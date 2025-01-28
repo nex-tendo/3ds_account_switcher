@@ -5,6 +5,6 @@
 
 .org 0x16129a
   .area 38
-    .asciiz "https://nasc.nextendo.online/ac/"
+    .asciiz "http://nasc.nextendo.online/ac/"
   .endarea
 .close
