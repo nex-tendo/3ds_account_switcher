@@ -42,7 +42,7 @@ GFXBUILD	:=	$(BUILD)
 #GFXBUILD	:=	$(ROMFS)/gfx
 
 APP_TITLE		:= Nextendo Account Switcher
-APP_DESCRIPTION	:= Switch between multiple network accounts on your 3DS
+APP_DESCRIPTION		:= Switch between multiple network accounts on your 3DS
 APP_AUTHOR		:= Nextendo Network
 
 #---------------------------------------------------------------------------------
@@ -180,20 +180,11 @@ ifneq ($(DEPSDIR),$(BUILD))
 $(DEPSDIR):
 	@mkdir -p $@
 endif
-
-#---------------------------------------------------------------------------------
-patches:
-	@make -C patch
-
-#---------------------------------------------------------------------------------
-patches_clean:
-	@make clean -C patch
 	
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).smdh $(TARGET).elf $(GFXBUILD)
-	@make clean -C patch
 
 #---------------------------------------------------------------------------------
 $(GFXBUILD)/%.t3x	$(BUILD)/%.h	:	%.t3s
