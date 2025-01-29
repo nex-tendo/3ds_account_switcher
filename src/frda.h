@@ -45,8 +45,8 @@ extern "C"
     Handle *frdaGetSessionHandle();
 
     /**
-     * @brief Get the current local account ID
-     * @param outAccountId Pointer to the output Account ID
+     * @brief Get the current local account ID.
+     * @param outAccountId Pointer to the output Account ID.
      */
     Result FRDA_GetMyLocalAccountId(u8 *outAccountId);
 
@@ -55,6 +55,12 @@ extern "C"
      * @param key Pointer to write the current user's friend key to.
      */
     Result FRDA_GetMyFriendKey(FriendKey *key);
+
+    /**
+     * @brief Sets the local account ID.
+     * @param sdkVer The SDK version needed to be used.
+     */
+    Result FRDA_SetLocalAccountId(u8 localAccountId);
 
     /**
      * @brief Sets the Friend API to use a specific SDK version.
