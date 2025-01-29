@@ -31,7 +31,7 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-TARGET		:=	$(notdir $(CURDIR))
+TARGET		:=	3ds_account_switcher
 BUILD		:=	build
 SOURCES		:=	src
 DATA		:=	data
@@ -42,7 +42,7 @@ GFXBUILD	:=	$(BUILD)
 #GFXBUILD	:=	$(ROMFS)/gfx
 
 APP_TITLE		:= Nextendo Account Switcher
-APP_DESCRIPTION		:= Switch between multiple network accounts on your 3DS
+APP_DESCRIPTION	:= Switch between multiple network accounts on your 3DS
 APP_AUTHOR		:= Nextendo Network
 
 #---------------------------------------------------------------------------------

@@ -9,6 +9,7 @@
 #include <optional>
 #include <algorithm>
 #include "frda.h"
+#include "acta.h"
 #include "version.h"
 
 #define NINTENDO_TEXT CONSOLE_YELLOW "Nintendo" CONSOLE_CYAN
