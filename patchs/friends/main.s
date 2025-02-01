@@ -3,6 +3,12 @@
 
 .open "code.bin", "patched_code.bin", 0x100000
 
+.org 0x102536
+  b 0x102556
+
+.org 0x101968
+  b 0x101974
+
 .org 0x16129a
   .area 38
     .asciiz "http://nasc.nextendo.online/ac/"
