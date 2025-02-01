@@ -1,5 +1,6 @@
 build/
 .vscode/
+.idea/
 *.ips
 *.bin
 *.3dsx
