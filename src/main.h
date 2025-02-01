@@ -1,27 +1,34 @@
+/*
+* file main.h
+* Copyright 2025 Nextendo Network Contributors
+* Licensed under MIT License
+*/
 #pragma once
 
 #include <3ds.h>
-#include <string.h>
-#include <string.h>
 #include <stdio.h>
-#include <stdarg.h>
-#include <vector>
+#include <stdlib.h>
+#include <string.h>
 #include <optional>
+#include <vector>
+#include <map>
+#include <cstdio>
 #include <algorithm>
+#include <string>
 #include "frda.h"
 #include "acta.h"
 #include "version.h"
 
-#define NINTENDO_TEXT CONSOLE_YELLOW "Nintendo" CONSOLE_CYAN
-#define NEXTENDO_TEXT CONSOLE_BLUE "Nextendo" CONSOLE_CYAN
+#define NINTENDO_TEXT CONSOLE_YELLOW "Nintendo Network"
+#define NEXTENDO_TEXT CONSOLE_BLUE "Nextendo Network"
 
-int selection = 0;
+#define NINTENDO_ACCOUNT_ID 1
+#define NEXTENDO_ACCOUNT_ID 2
 
-struct NASAccount 
+struct NASLocalAccount
 {
-    u32 pid;
-    u8 actId;
-    NASType nasType;
-    NASEnvironment nasEnv;
+    u8 accountId;
+    NASType type;
+    NASEnvironment env;
     u8 envNum;
 };

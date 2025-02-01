@@ -5,7 +5,6 @@
 #include <3ds/ipc.h>
 #include <3ds/result.h>
 #include <3ds/srv.h>
-
 #include "acta.h"
 
 static Handle actaHandle;

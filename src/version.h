@@ -1,6 +1,10 @@
-#ifndef _VERSION_H_
-#define _VERSION_H_
+/*
+* file version.h
+* Copyright 2025 Nextendo Network Contributors
+* Licensed under MIT License
+*/
+#pragma once
 
-#define VERSION CONSOLE_BLUE "v1.1.0" CONSOLE_CYAN
+#include <3ds.h>
 
-#endif
+#define APP_VERSION "v1.2.0"

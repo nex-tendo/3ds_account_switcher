@@ -5,7 +5,6 @@
 #include <3ds/ipc.h>
 #include <3ds/result.h>
 #include <3ds/srv.h>
-#include <3ds/util/utf.h>
 #include "frda.h"
 
 static Handle frdaHandle;
@@ -41,7 +40,7 @@ Result FRDA_GetMyLocalAccountId(u8 *outAccountId)
 {
     Result ret = 0;
     u32 *cmdbuf = getThreadCommandBuffer();
-    cmdbuf[0] = IPC_MakeHeader(0xB, 0, 0); // 0xB, 2, 0
+    cmdbuf[0] = IPC_MakeHeader(0xB, 0, 0);
 
     if (R_FAILED(ret = svcSendSyncRequest(frdaHandle)))
         return ret;
@@ -64,19 +63,6 @@ Result FRDA_GetMyFriendKey(FriendKey *key)
     memcpy(key, &cmdbuf[2], sizeof(FriendKey));
 
     return (Result)cmdbuf[1];
-}
-
-Result FRDA_SetLocalAccountId(u8 localAccountId) {
-	Result ret = 0;
-	u32 *cmdbuf = getThreadCommandBuffer();
-
-	cmdbuf[0] = IPC_MakeHeader(0x403, 1, 0);
-	cmdbuf[1] = localAccountId;
-
-	if (R_FAILED(ret = svcSendSyncRequest(frdaHandle)))
-		return ret;
-
-	return (Result)cmdbuf[1];
 }
 
 Result FRDA_SetClientSdkVersion(u32 sdkVer)
@@ -180,5 +166,3 @@ Result FRDA_Save()
 
     return (Result)cmdbuf[1];
 }
-
-
