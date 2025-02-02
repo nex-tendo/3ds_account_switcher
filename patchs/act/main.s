@@ -1,7 +1,7 @@
 .3ds
 .thumb
 
-include "adr.s"
+.include "adr.s"
 
 .open "code.bin", "patched_code.bin", 0x100000
 
