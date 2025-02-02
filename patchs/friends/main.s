@@ -11,6 +11,11 @@
 
 .org 0x16129a
   .area 38
-    .asciiz "http://nasc.nextendo.online/ac/"
+    .asciiz "https://nasc.pretendo.cc/ac/"
+  .endarea
+
+.org 0x1612C0
+  .area 37
+    .asciiz "http://nasc.nextendo.online/ac"
   .endarea
 .close

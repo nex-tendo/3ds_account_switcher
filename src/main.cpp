@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
 	std::vector<NASLocalAccount> nasAccountList;
 
-	u8 ids[] = {1, 2};
+	u8 ids[] = {1, 2, 3};
 	for (u8 id : ids)
 	{
 		Result rc = FRDA_LoadLocalAccount(id);
@@ -65,11 +65,10 @@ int main(int argc, char *argv[])
 	printf(CONSOLE_CYAN "== Nextendo Account Switcher ==\n" CONSOLE_RESET);
 	printf(CONSOLE_CYAN "\nPlease select a network:\n" CONSOLE_RESET);
 	printf(CONSOLE_CYAN "\nPress A to select "  NINTENDO_TEXT ".\n" CONSOLE_RESET);
+	printf(CONSOLE_CYAN "Press Y to select " PRETENDO_TEXT ".\n" CONSOLE_RESET);
 	printf(CONSOLE_CYAN "Press X to select " NEXTENDO_TEXT ".\n" CONSOLE_RESET);
 	printf(CONSOLE_CYAN "\nAccount Switcher Version: %s\n" CONSOLE_RESET, APP_VERSION);
 	printf(CONSOLE_CYAN "\nPress START to exit.\n" CONSOLE_RESET);
-
-	u32 kDown = 0;
 
 	while (aptMainLoop())
 	{
@@ -77,7 +76,7 @@ int main(int argc, char *argv[])
 		gfxSwapBuffers();
 		hidScanInput();
 
-		kDown = hidKeysDown();
+		u32 kDown = hidKeysDown();
 
 		if (kDown & KEY_A) {
 			serverName = "Nintendo";
@@ -85,10 +84,16 @@ int main(int argc, char *argv[])
 			accountType = NAS_LIVE;
 			accountEnv = NAS_ENV_L;
 			break;
+		} else if (kDown & KEY_Y) {
+			serverName = "Pretendo";
+			accountId = PRETENDO_ACCOUNT_ID;
+			accountType = NAS_TEST;
+			accountEnv = NAS_ENV_L;
+			break;
 		} else if (kDown & KEY_X) {
 			serverName = "Nextendo";
 			accountId = NEXTENDO_ACCOUNT_ID;
-			accountType = NAS_TEST;
+			accountType = NAS_DEV;
 			accountEnv = NAS_ENV_L;
 			break;
 		} else if (kDown & KEY_START) {

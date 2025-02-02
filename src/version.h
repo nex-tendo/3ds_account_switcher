@@ -7,4 +7,4 @@
 
 #include <3ds.h>
 
-#define APP_VERSION "v1.2.0"
+#define APP_VERSION "v1.3.0"
