@@ -5,15 +5,19 @@
 */
 #include "main.h"
 
+Language currentLanguage = ENGLISH;
+
 int main(int argc, char *argv[])
 {
 	gfxInitDefault();
 	frdaInit();
+	cfguInit();
 
 	PrintConsole topConsole;
 	consoleInit(GFX_TOP, &topConsole);
 	consoleSelect(&topConsole);
-	Result rc;
+
+	Result rc = 0;
 
 	{
 		ndmuInit();
@@ -60,15 +64,30 @@ int main(int argc, char *argv[])
 	u8 accountId = 1;
 	NASType accountType = NAS_LIVE;
 	NASEnvironment accountEnv = NAS_ENV_L;
-	std::string serverName = "Nintendo";
 
-	printf(CONSOLE_CYAN "== Nextendo Account Switcher ==\n" CONSOLE_RESET);
-	printf(CONSOLE_CYAN "\nPlease select a network:\n" CONSOLE_RESET);
-	printf(CONSOLE_CYAN "\nPress A to select "  NINTENDO_TEXT ".\n" CONSOLE_RESET);
-	printf(CONSOLE_CYAN "Press Y to select " PRETENDO_TEXT ".\n" CONSOLE_RESET);
-	printf(CONSOLE_CYAN "Press X to select " NEXTENDO_TEXT ".\n" CONSOLE_RESET);
-	printf(CONSOLE_CYAN "\nAccount Switcher Version: %s\n" CONSOLE_RESET, APP_VERSION);
-	printf(CONSOLE_CYAN "\nPress START to exit.\n" CONSOLE_RESET);
+	u8 language;
+	CFGU_GetSystemLanguage(&language);
+
+	switch (language) {
+		case CFG_LANGUAGE_JP:
+			currentLanguage = JAPANESE;
+			break;
+		case CFG_LANGUAGE_FR:
+			currentLanguage = FRENCH;
+			break;
+		case CFG_LANGUAGE_EN:
+		default:
+			currentLanguage = ENGLISH;
+			break;
+	}
+
+	printf(CONSOLE_CYAN "%s" CONSOLE_RESET, texts[0][currentLanguage]);
+	printf(CONSOLE_CYAN "%s" CONSOLE_RESET, texts[1][currentLanguage]);
+	printf(CONSOLE_CYAN "%s" CONSOLE_RESET, texts[2][currentLanguage]);
+	printf(CONSOLE_CYAN "%s" CONSOLE_RESET, texts[3][currentLanguage]);
+	printf(CONSOLE_CYAN "%s" CONSOLE_RESET, texts[4][currentLanguage]);
+	printf(CONSOLE_CYAN "%s" CONSOLE_RESET, texts[5][currentLanguage]);
+	printf(CONSOLE_CYAN "%s" CONSOLE_RESET, texts[6][currentLanguage]);
 
 	while (aptMainLoop())
 	{
@@ -79,19 +98,16 @@ int main(int argc, char *argv[])
 		u32 kDown = hidKeysDown();
 
 		if (kDown & KEY_A) {
-			serverName = "Nintendo";
 			accountId = NINTENDO_ACCOUNT_ID;
 			accountType = NAS_LIVE;
 			accountEnv = NAS_ENV_L;
 			break;
 		} else if (kDown & KEY_Y) {
-			serverName = "Pretendo";
 			accountId = PRETENDO_ACCOUNT_ID;
 			accountType = NAS_TEST;
 			accountEnv = NAS_ENV_L;
 			break;
 		} else if (kDown & KEY_X) {
-			serverName = "Nextendo";
 			accountId = NEXTENDO_ACCOUNT_ID;
 			accountType = NAS_DEV;
 			accountEnv = NAS_ENV_L;
@@ -144,6 +160,7 @@ int main(int argc, char *argv[])
 		FRDA_LoadLocalAccount(NINTENDO_ACCOUNT_ID);
 	}
 
+	cfguExit();
 	frdaExit();
 	gfxExit();
 	return 0;
