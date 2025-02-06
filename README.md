@@ -1,5 +1,5 @@
 # 3ds_account_switcher
-- 3DS Nextendo Account Switcher
+- A 3DS Nextendo Network Account Switcher.
 
 # Installation
 - Install the ```3ds_account_switcher.rar``` in the latest release, and put luma and 3ds folder on your SD Card.
